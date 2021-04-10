@@ -124,6 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = 'https://github.com/Sumanth9494/ppdspro/tree/master/static/'
-STATICFILES_DIRS=[https://github.com/Sumanth9494/ppdspro/tree/master/static]
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 
 SESSION_COOKIE_AGE=400
