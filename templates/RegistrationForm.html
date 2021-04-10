@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+{% block content %}
+<body>
+<link rel="stylesheet" type="text/css" href="{% static 'css/RegistrationForm.css' %}">
+<div class="container" id="div1">
+    <div class="row">
+        <div id="rform">
+            <h2 class="text-center">
+                {% if o_formname %}
+                    {{ o_formname }}
+                {% else %}
+                    {{ u_formname }}
+                {% endif %}
+            </h2>
+            <form method="post" id="rf" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if orform %}
+                    {{ orform.as_p }}
+                {% else %}
+                    {{ urform.as_p }}
+                {% endif %}
+                <br>
+                <center>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <br><br>
+                    <p> Already existing user ?
+                        <u>
+                            {% if reg_form %}
+                                <a href="/userLogin/">Click Here</a>
+                            {% else %}
+                                <a href="/ownerLogin/">Click Here</a>
+                            {% endif %}
+                        </u>
+                    </p>
+                </center>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
+</html>

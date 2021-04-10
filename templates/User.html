@@ -1,0 +1,195 @@
+{% extends 'userBase.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+{% block content %}
+<body>
+{% if udata %}
+    <style>body{background-color: lightyellow}</style>
+    {% for k in udata %}
+        <p style="text-align: center;margin: 200px;font-weight: bold;font-size: 70px">welcome to {{ k.name }}</p>
+    {% endfor %}
+{% endif %}
+
+{% if spview %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/userSearch.css' %}">
+
+    <h2><b>SEARCH PATIENT</b></h2>
+    <center>
+    <form method="post" enctype="multipart/form-data" action="/searchKey/">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Enter Search Word</th>
+                    <td>
+                        <input  name="keyword" type="text" required="">
+                    </td>
+                    <td><button type="submit" class="btn btn-success">Search</button></td>
+                </tr>
+            </table>
+    </form>
+
+    {% if search %}
+        <hr>
+        <center>
+            <h2><b>PATIENT DATA</b></h2>
+        <table border="2">
+            {% for i in search %}
+                <tbody>
+                <tr>
+                <td><b>Name:</b> {{ i.patient_name }}</td>
+                <td><b>Disease:</b> {{ i.disease_name }}</td>
+                <td class="text-center"><a href="/viewFD/{{ i.id }}"><b> Click </b></a></td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+        </center>
+    {% else %}
+        <h2 class="text-center">{{ Kmessage}}</h2>
+    {% endif %}
+
+    {% if data %}
+            <hr>
+            <center>
+        <h2>Send Request Data</h2>
+        <table border="2">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>DOB</th>
+                    <th>Age</th>
+                    <th>Hospital Name</th>
+                    <th>File Name</th>
+                    <th>File Data</th>
+                    <th>Permission</th>
+                </tr>
+                </thead>
+            {% for i in data %}
+                <tbody>
+                <tr>
+                <td class="text-center">{{ i.patient_name }}</td>
+                <td class="text-center">{{ i.email }}</td>
+                <td class="text-center">{{ i.mobile }}</td>
+                <td class="text-center">{{ i.address }}</td>
+                <td class="text-center">{{ i.dob }}</td>
+                <td class="text-center">{{ i.patient_age }}</td>
+                <td class="text-center">{{ i.hospital_name }}</td>
+                <td class="text-center">{{ i.file_name }}</td>
+                <td class="text-center">{{ i.select_file }}</td>
+                {% if i.permission == 'Send Request' %}
+                    <td class="text-center" style="color: red"><a href="/sendKeyRequest/{{ i.id }}/{{ i.patient_name }}/"> Send Request </a></td>
+                {% else %}
+                    <td class="text-center" style="color: green">{{ i.permission }}</td>
+                {% endif %}
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+        </center>
+        {% else %}
+            <h2 class="text-center">{{ Dmessage}}</h2>
+    {% endif %}
+    {% if Rmessage %}
+        <h2>{{ Rmessage }}</h2>
+    {% endif %}
+    </center>
+{% endif %}
+
+{% if kdata %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/viewCommon.css' %}">
+    <h2><b>Send Key Requests</b></h2>
+    <hr>
+
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Owner</th>
+            <th>Patient_Id</th>
+            <th>Patient Name</th>
+            <th>Secret Key</th>
+        </tr>
+        </thead>
+        {% for i in kdata %}
+            <tbody>
+            <tr>
+            <td class="text-center">{{ i.id }}</td>
+            <td class="text-center">{{ i.owner }}</td>
+            <td class="text-center">{{ i.patient_id }}</td>
+            <td class="text-center">{{ i.patient }}</td>
+            {% if i.secret_key == 'waiting' %}
+                <td class="text-center" style="color: red">{{ i.secret_key }}</td>
+            {% else %}
+                <td class="text-center" style="color: green">{{ i.secret_key }}</td>
+            {% endif %}
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ kmsg}}</h3>
+{% endif %}
+
+{% if ddata %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/viewCommon.css' %}">
+    <style>
+    input{width: 100px;outline: none}
+    button{outline: none;border: none;background-color: transparent;}
+    button:hover{outline: none;border: none;background-color: transparent;color: blue}
+    </style>
+    <h2><b>Download File</b></h2>
+    <hr>
+
+    <center>
+    <table >
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Owner</th>
+            <th>Patient_Id</th>
+            <th>Patient Name</th>
+            <th colspan="2">Key</th>
+        </tr>
+        </thead>
+        {% for i in ddata %}
+            <tbody>
+            <tr>
+            <td class="text-center">{{ i.id }}</td>
+            <td class="text-center">{{ i.owner }}</td>
+            <td class="text-center">{{ i.patient_id }}</td>
+            <td class="text-center">{{ i.patient }}</td>
+            <td class="text-center">
+                <form action="/downloadFile/{{ i.patient_id }}/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Secret Key" name="key" class="text-center">
+                    <button type="submit"><b>Download</b></button>
+                </form>
+            </td>
+
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+            <h3 class="text-center">{{ dmsg}}</h3>
+{% endif %}
+
+</body>
+{% endblock %}
+</html>

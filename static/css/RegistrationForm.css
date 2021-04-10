@@ -1,0 +1,64 @@
+body{
+    background: url(/static/images/owner.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0;padding: 0;
+}
+#rform li{display: inline;margin-left: 40px;width: 500px;}
+#rform ul{list-style-type: none;margin-top: -45px;width: fit-content}
+h2{margin: 0;padding: 0 0 20px;font-weight: bold;color: white;}
+#div1{width: fit-content;height: fit-content}
+#rform{
+
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0,0.5);
+    padding: 40px;
+    margin: 20px 20px;
+}
+#rform p{
+    color: white;
+}
+
+#rform input[type=text],
+#rform input[type=password],
+#rform input[type=email],
+#rform input[type=number]{
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    outline: none;
+    height: 40px;
+    font-size: 18px;
+    color: white;
+}
+#rform p input[type=file]{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    height: 40px;
+    font-size: 16px;
+    color: white;margin-top: -40px;margin-left: 50px;width: fit-content;list-style-type: none;
+}
+
+
+#rf select{margin-left: 20px;margin-right: 5px}
+#rf label{color: white}
+#rform .form-control:focus,.form-control{
+    border-radius: 0;
+    box-shadow: none;
+    color: white;
+    background-color: transparent;
+}
+#rform a{color: white;font-weight: normal}
+#rform a:hover{color: crimson;font-weight: bold}
+#rform .form-control::-webkit-input-placeholder { color: white;font-size: 14px }  /* WebKit, Blink, Edge */
+#rform .form-control:-moz-placeholder { color: white; font-size: 14px}  /* Mozilla Firefox 4 to 18 */
+#rform .form-control::-moz-placeholder { color: white; font-size: 14px}  /* Mozilla Firefox 19+ */
+#rform .form-control:-ms-input-placeholder { color: white; font-size: 14px}  /* Internet Explorer 10-11 */
+#rform .form-control::-ms-input-placeholder { color: white; font-size: 14px}  /* Microsoft Edge */
+#rf .btn{padding: 5px;margin-right: 20px;margin-left: 20px;width: 200px}

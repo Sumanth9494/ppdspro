@@ -1,0 +1,174 @@
+{% extends 'authorityBase.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/viewCommon.css' %}">
+<body>
+{% if home %}
+    <p style="text-align: center;margin: 200px;font-weight: bold;font-size: 70px">{{ home }}</p>
+{% endif %}
+{% if odata %}
+    <h2><b>Authorize Owner Data</b></h2>
+    <hr>
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Permission</th>
+        </tr>
+        </thead>
+        {% for i in odata %}
+            <tbody>
+            <tr>
+            <td><img src="{{ i.profile_pic.url }}" class="img-responsive" style="width: 100px;height: 100px"></td>
+            <td>{{ i.ownername }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.mobile }}</td>
+            <td>{{ i.dob }}</td>
+            <td>{{ i.address }}</td>
+            {% if i.status == 'Inactive' %}
+                <td style="color: red">{{ i.status }}</td>
+            {% else %}
+                <td style="color: green">{{ i.status }}</td>
+            {% endif %}
+            {% if i.status == 'Inactive' %}
+                <td><a href="/ownerActivate/{{ i.id }}">Activate</a></td>
+            {% else %}
+                <td><a href="/ownerDeactivate/{{ i.id }}">Deactivate</a></td>
+            {% endif %}
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+            <h3 class="text-center">{{ oerror}}</h3>
+{% endif %}
+{% if udata %}
+<h2><b>Authorize User Data</b></h2>
+<hr>
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Permission</th>
+        </tr>
+        </thead>
+        {% for i in udata %}
+            <tbody>
+            <tr>
+            <td><img src="{{ i.profile_pic.url }}" class="img-responsive" style="width: 100px;height: 100px"></td>
+            <td>{{ i.username }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.mobile }}</td>
+            <td>{{ i.dob }}</td>
+            <td>{{ i.address }}</td>
+            {% if i.status == 'Inactive' %}
+                <td style="color: red">{{ i.status }}</td>
+            {% else %}
+                <td style="color: green">{{ i.status }}</td>
+            {% endif %}
+            {% if i.status == 'Inactive' %}
+                <td><a href="/userActivate/{{ i.id }}">Activate</a></td>
+            {% else %}
+                <td><a href="/userDeactivate/{{ i.id }}">Deactivate</a></td>
+            {% endif %}
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+            <h3 class="text-center">{{ uerror }}</h3>
+{% endif %}
+{% if kdata %}
+<h2><b>Send Key Requests</b></h2>
+<hr>
+
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Owner</th>
+            <th>Patient_Id</th>
+            <th>Patient Name</th>
+            <th>Secret Key</th>
+        </tr>
+        </thead>
+        {% for i in kdata %}
+            <tbody>
+            <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.owner }}</td>
+            <td>{{ i.patient_id }}</td>
+            <td>{{ i.patient }}</td>
+            {% if i.secret_key == 'waiting' %}
+                <td><a href="/generateKey/{{ i.id }}">{{ i.secret_key }}</a></td>
+            {% else %}
+                <td style="color: green">{{ i.secret_key }}</td>
+            {% endif %}
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+            <h3 class="text-center">{{ kerror}}</h3>
+{% endif %}
+{% if adata %}
+<h2><b>Attacker Data</b></h2>
+<hr>
+
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Owner</th>
+            <th>Patient</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        {% for i in adata %}
+            <tbody>
+            <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.owner }}</td>
+            <td>{{ i.patient }}</td>
+            <td>{{ i.date }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+            <h3 class="text-center">{{ aerror}}</h3>
+{% endif %}
+</body>
+{% endblock %}
+</html>

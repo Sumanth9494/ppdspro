@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .footer {
+        padding: 5px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: brown;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+}
+.navbar .navbar-nav .nav-item .nav-link{color: white;font-size: 16px}
+.navbar .navbar-nav .nav-item .nav-link:hover{color: antiquewhite;}
+
+.sidebar {
+    height: 100%;
+    background-color: black;
+    float: left;
+    position: absolute;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  display: block;padding-top: 20px;
+}
+
+.sidebar a:hover {
+  color: antiquewhite;
+}
+
+.main {
+   /* Same as the width of the sidenav */
+    margin-left: 300px;
+    padding: 0px 10px;
+}
+</style>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top">
+  <!-- Brand/logo -->
+    <a class="navbar-brand" style="font-weight: bold" href="#">PRIVACY AWARE PERSONAL DATA STORAGE</a>
+    <ul class="navbar-nav ml-auto">
+    <li class="nav-item" id="logout">
+      <a class="nav-link" href="/ehcsLogin/">LOGOUT</a>
+    </li>
+  </ul>
+</nav>
+<div class="sidebar">
+  <a href="/ehcsHome/">HOME</a>
+  <a href="/ehcsPatient/">PATIENT DETAILS</a>
+  <a href="/ehcsSAC/">ACCESS CONTROLS</a>
+  <a href="/ehcsTransaction/">ALL TRANSACTIONS</a>
+  <a href="/ehcsSRK/">SK REQUEST AND RESPONSE</a>
+  <a href="/ehcsAttackers/">NO. ATTACKERS ON PATIENT</a>
+  <a href="/ehcsDC/">NO. OF SAME DISEASE IN CHART</a>
+  <a href="/ehcsSRC/">PATIENT SEARCHED RANK IN CHART</a>
+</div>
+<div class="main">
+{% block content %}
+{% endblock %}
+</div>
+
+<footer class="footer">Copyright@Kallem Sumanth Reddy</footer>
+</body>
+</html>

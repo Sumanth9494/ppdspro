@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+{% block content %}
+<body>
+<link rel="stylesheet" type="text/css" href="{% static 'css/LoginForm.css' %}">
+<center>
+<div class="container" id="div1">
+    <div class="row">
+        <div id="lform">
+            <h2>
+                {% if o_formname %}
+                    {{ o_formname }}
+                {% elif u_formname %}
+                    {{ u_formname }}
+                {% elif e_formname %}
+                    {{ e_formname }}
+                {% else %}
+                    {{ a_formname }}
+                {% endif %}
+            </h2>
+            <form id="lf" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if olform %}
+                    {{ olform.as_p }}
+                {% elif ulform%}
+                    {{ ulform.as_p}}
+                {% elif elform%}
+                    {{ elform.as_p}}
+                {% else %}
+                    {{ alform.as_p }}
+                {% endif %}}
+                <br>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <br><br>
+                {% if auth_log_form or ehcs_log_form %}
+                    <p style="display: none"></p>
+                {% else %}
+                    <p>New user ?
+                    <u>
+                        {% if log_form %}
+                            <a href="/userRegister/">Click Here</a>
+                         {% else %}
+                            <a href="/ownerRegister/">Click Here</a>
+                        {% endif %}
+                    </u>
+                    </p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+    </center>
+
+</body>
+{% endblock %}
+</html>

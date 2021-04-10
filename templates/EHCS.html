@@ -1,0 +1,167 @@
+{% extends 'ehcsBase.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/viewCommon.css' %}">
+<body>
+{% if ehome %}
+    <p style="text-align: center;margin: 200px;font-weight: bold;font-size: 70px">Electronic Health Service Cloud</p>
+{% endif %}
+{% if pdata %}
+    <h2><b>PATIENT DETAILS</b></h2>
+    <hr>
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Hospital Name</th>
+            <th>Patient Blood Group</th>
+            <th>Disease Name</th>
+            <th>Disease Symptom</th>
+            <th>Patient Age</th>
+            <th>Date of Birth</th>
+            <th>File Name</th>
+            <th>File Data</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        {% for i in pdata %}
+            <tbody>
+            <tr>
+            <td><img src="{{ i.patient_pic.url }}" class="img-responsive" style="width: 100px;height: 100px"></td>
+            <td>{{ i.patient_name }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.mobile }}</td>
+            <td>{{ i.address }}</td>
+            <td>{{ i.hospital_name }}</td>
+            <td>{{ i.patient_blood_group }}</td>
+            <td>{{ i.disease_name }}</td>
+            <td>{{ i.disease_symptom }}</td>
+            <td >{{ i.patient_age }}</td>
+            <td>{{ i.dob }}</td>
+            <td>{{ i.file_name }}</td>
+            <td><a href="{{ i.select_file.url }}" target="_blank" >View</a></td>
+            <td>{{ i.joining_date }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ pderror}}</h3>
+{% endif %}
+{% if sacdata %}
+    <h2><b>ACCESS CONTROLS</b></h2>
+    <hr>
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Department</th>
+            <th>Profession</th>
+        </tr>
+        </thead>
+        {% for i in sacdata %}
+            <tbody>
+            <tr>
+            <td>{{ i.patient_id }}</td>
+            <td>{{ i.patient }}</td>
+            <td>{{ i.department }}</td>
+            <td>{{ i.profession }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ sacerror }}</h3>
+{% endif %}
+{% if tdata %}
+    <h2><b>Transaction Details</b></h2>
+    <hr>
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Owner</th>
+            <th>Patient</th>
+            <th>File Name</th>
+            <th>Task</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        {% for i in tdata %}
+            <tbody>
+            <tr>
+            <td>{{ i.owner }}</td>
+            <td>{{ i.patient }}</td>
+            <td>{{ i.filename }}</td>
+            <td>{{ i.task }}</td>
+            <td>{{ i.date }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ terror }}</h3>
+{% endif %}
+{% if skrdata %}
+    <h2><b>Transaction Details</b></h2>
+    <hr>
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Requested By</th>
+            <th>Patient ID</th>
+            <th>Patient</th>
+            <th>Secret Key</th>
+        </tr>
+        </thead>
+        {% for i in skrdata %}
+            <tbody>
+            <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.owner }}</td>
+            <td>{{ i.patient_id }}</td>
+            <td>{{ i.patient }}</td>
+            <td>{{ i.secret_key }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ skrerror }}</h3>
+{% endif %}
+{% if amsg %}
+    <h2>{{ amsg }}</h2>
+{% endif %}
+{% if dcmsg %}
+    <h2>{{ dcmsg }}</h2>
+{% endif %}
+{% if srcmsg %}
+    <h2>{{ srcmsg }}</h2>
+{% endif %}
+</body>
+{% endblock %}
+</html>

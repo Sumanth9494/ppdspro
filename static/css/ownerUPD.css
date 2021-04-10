@@ -1,0 +1,29 @@
+body{background-color: lightyellow}
+h2{margin-top: 30px;padding: 0 0 20px;color: crimson;}
+#div1{width: fit-content;height: fit-content}
+#rform p {text-align: left;width: 400px;margin: 5px;}
+#rform p label select{margin-left: 30px;margin-right: 10px}
+#rform p input{float: right;width: 250px;margin: 2px;padding: 2px}
+#rform p textarea{width: 400px;height: 100px;border: black 1px solid;}
+#rform input[type=text],
+#rform input[type=password],
+#rform input[type=email],
+#rform input[type=number]{
+    border: 1px solid black;
+    height: 30px;
+    font-size: 16px;color: black;
+}
+#rform p input[type=file]{
+    border: none;
+    height: 40px;
+    font-size: 16px;margin-top: -40px;margin-left: 50px;width: fit-content;list-style-type: none;background-color: lightyellow
+}
+#rform p input[name=patient_pic]{
+    border: none;
+    height: 40px;
+    font-size: 16px;margin-top: 0 ;margin-left: 50px;width: fit-content;list-style-type: none;background-color: lightyellow
+}
+#rform .form-control:focus,.form-control{
+    box-shadow: none;
+}
+#rf .btn{padding: 5px;margin-right: 20px;margin-left: 20px;width: 150px}

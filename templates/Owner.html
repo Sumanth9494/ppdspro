@@ -1,0 +1,177 @@
+{% extends 'ownerBase.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PPDS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+{% block content %}
+<body>
+{% if odata %}
+    <style>body{background-color: lightyellow}</style>
+    {% for k in odata %}
+        <p style="text-align: center;margin: 200px;font-weight: bold;font-size: 70px">welcome to {{ k.name }}</p>
+    {% endfor %}
+{% endif %}
+
+{% if oupdform %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ownerUPD.css' %}">
+    <div class="container" id="div1">
+        <div class="row">
+            <div id="rform">
+                <h2 class="text-center"><b>UPLOAD PATIENT DETAILS</b></h2>
+
+                <form method="post" id="rf" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ oupdform.as_p }}
+                    <br>
+                    <center>
+                        <button type="submit" class="btn btn-success">Upload</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                        <br>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if sacform %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ownerSAC.css' %}">
+    <h2 class="text-center"><b>SET ACCESS CONTROLS</b></h2>
+    <center>
+    <form method="post" enctype="multipart/form-data" action="/ownerSacForm/">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Patient</td>
+                <td>
+                    <select name="patient">
+                        <option disabled="true" selected>--- select ---</option>
+                        {% for i in sacdata %}
+                        <option>{{ i.patient_name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td>
+                    <select name="department">
+                        <option disabled="true" selected>--- select ---</option>
+                        <option>Cardiology</option>
+                        <option>Neurology</option>
+                        <option>Nephrology</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Profession</td>
+                <td>
+                    <select name="profession">
+                        <option disabled="true" selected>--- select ---</option>
+                        <option>Doctor</option>
+                        <option>Nurse</option>
+                        <option>Surgeon</option>
+                        <option>Dentist</option>
+                        <option>Insurance Company</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="reset" class="btn btn-danger">Cancel</button>
+    </form>
+    </center>
+{% endif %}
+{% if pddata %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/viewCommon.css' %}">
+    <h2><b>PATIENT DETAILS</b></h2>
+    <hr>
+
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Hospital Name</th>
+            <th>Patient Blood Group</th>
+            <th>Disease Name</th>
+            <th>Disease Symptom</th>
+            <th>Patient Age</th>
+            <th>Date of Birth</th>
+            <th>File Name</th>
+            <th>File Data</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        {% for i in pddata %}
+            <tbody>
+            <tr>
+            <td><img src="{{ i.patient_pic.url }}" class="img-responsive" style="width: 100px;height: 100px"></td>
+            <td>{{ i.patient_name }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.mobile }}</td>
+            <td>{{ i.address }}</td>
+            <td>{{ i.hospital_name }}</td>
+            <td>{{ i.patient_blood_group }}</td>
+            <td>{{ i.disease_name }}</td>
+            <td>{{ i.disease_symptom }}</td>
+            <td >{{ i.patient_age }}</td>
+            <td>{{ i.dob }}</td>
+            <td>{{ i.file_name }}</td>
+            <td><a href="{{ i.select_file.url }}" target="_blank" >View</a></td>
+            <td>{{ i.joining_date }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ pderror}}</h3>
+{% endif %}
+{% if vacdata %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/viewCommon.css' %}">
+    <h2><b>ACCESS CONTROLS</b></h2>
+    <hr>
+
+    <center>
+    <table>
+        <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Department</th>
+            <th>Profession</th>
+        </tr>
+        </thead>
+        {% for i in vacdata %}
+            <tbody>
+            <tr>
+            <td>{{ i.patient_id }}</td>
+            <td>{{ i.patient }}</td>
+            <td>{{ i.department }}</td>
+            <td>{{ i.profession }}</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </center>
+    {% else %}
+        <h3 class="text-center">{{ acerror }}</h3>
+{% endif %}
+</body>
+{% endblock %}
+</html>
