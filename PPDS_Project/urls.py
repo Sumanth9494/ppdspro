@@ -21,7 +21,7 @@ from django.views.static import serve
 from PPDS import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ppdspro-preproduction.azurewebsites.net', views.home),
+    path('', views.home),
     path('ownerRegister/', views.url_path_link),
     path('ownerLogin/', views.url_path_link),
     path('userLogin/', views.url_path_link),
